@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Event sheet 1</name>
+    <events>
+        <variable constant="0" name="Score" sid="109744712208691" static="0" type="number">0</variable>
+        <variable constant="0" name="HighScore" sid="835328779708776" static="0" type="number">0</variable>
+        <variable constant="0" name="player_alive" sid="766782546882484" static="0" type="number">1</variable>
+        <event-block sid="121885103915825">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="412564278696292" type="System" />
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="190924762337233">
+                    <conditions>
+                        <condition id="3" name="Local key exists" sid="931365589870203" type="WebStorage">
+                            <param id="0" name="Key">&quot;HighScore&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" sid="305760503526694" type="System">
+                            <param id="0" name="Variable">HighScore</param>
+                            <param id="1" name="Value">WebStorage.LocalValue(&quot;HighScore&quot;)</param>
+                        </action>
+                        <action id="0" name="Set text" sid="379713199101952" type="txt_highscore">
+                            <param id="0" name="Text">&quot;HighScore: &quot; &amp; HighScore</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="374222524536192">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="843686133551831" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" sid="926507416443223" type="System">
+                            <param id="0" name="Variable">HighScore</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                        <action id="0" name="Set text" sid="959294790339043" type="txt_highscore">
+                            <param id="0" name="Text">&quot;HighScore: &quot; &amp; HighScore</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="450093194414212">
+            <conditions>
+                <condition id="-14" name="Compare variable" sid="193787770946344" type="System">
+                    <param id="0" name="Variable">player_alive</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="930704948757660" type="obj_platform">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action id="-15" name="Set visible" sid="192054845493645" type="txt_gameover">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-15" name="Set visible" sid="766161263779477" type="txt_restart">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-15" name="Set visible" sid="892154275723977" type="txt_highscore">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-15" name="Set visible" sid="410174667930589" type="txt_score">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+            </actions>
+            <sub-events>
+                <event-block sid="239963123854151">
+                    <conditions>
+                        <condition behavior="Platform" id="2" name="Is on floor" sid="339048728638327" type="obj_player" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="7" name="Simulate control" sid="248403323527969" type="obj_player">
+                            <param id="0" name="Control">1</param>
+                        </action>
+                        <action behavior="Platform" id="1" name="Set max speed" sid="798605465807037" type="obj_player">
+                            <param id="0" name="Max Speed">255</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="194824558413106">
+                    <conditions>
+                        <condition id="-6" name="Every X seconds" sid="159727965874290" type="System">
+                            <param id="0" name="Interval (seconds)">1.0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-3" name="Create object" sid="686091588560230" type="System">
+                            <param id="0" name="Object to create">obj_platform</param>
+                            <param id="1" name="Layer">0</param>
+                            <param id="2" name="X">640</param>
+                            <param id="3" name="Y">floor(random(256,352))</param>
+                        </action>
+                        <action id="-10" name="Add to" sid="781013982483779" type="System">
+                            <param id="0" name="Variable">Score</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="0" name="Set text" sid="551477379317064" type="txt_score">
+                            <param id="0" name="Text">&quot;Score: &quot;&amp; Score</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="895608026090588">
+                    <conditions>
+                        <condition id="-18" name="On created" sid="488108148575854" type="obj_platform" />
+                    </conditions>
+                    <actions>
+                        <action id="-29" name="Move to object" sid="576766921578040" type="obj_platform">
+                            <param id="0" name="Where">1</param>
+                            <param id="1" name="Object">saw</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="793327802023513">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="974859889765581" type="obj_player">
+                            <param id="0" name="Object">saw</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="255294894690005" type="obj_player" />
+                        <action id="-9" name="Set value" sid="132879218083696" type="System">
+                            <param id="0" name="Variable">player_alive</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="446538931161012">
+                    <conditions>
+                        <condition id="-4" name="Is outside layout" sid="679243221669615" type="obj_player" />
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="435887732937675" type="obj_player" />
+                        <action id="-9" name="Set value" sid="127482689385520" type="System">
+                            <param id="0" name="Variable">player_alive</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="255290065706635">
+                    <conditions>
+                        <condition behavior="Platform" id="2" inverted="1" name="Is on floor" sid="404389543419110" type="obj_player" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="1" name="Set max speed" sid="405859096153461" type="obj_player">
+                            <param id="0" name="Max Speed">100</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="987585066111737">
+            <conditions>
+                <condition id="-14" name="Compare variable" sid="130371400014207" type="System">
+                    <param id="0" name="Variable">player_alive</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">0</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-13" name="Set time scale" sid="808069656768909" type="System">
+                    <param id="0" name="Time scale">0</param>
+                </action>
+                <action id="-15" name="Set visible" sid="704061109341109" type="txt_gameover">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+                <action id="-15" name="Set visible" sid="272454755146625" type="txt_restart">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+                <action id="-15" name="Set visible" sid="627625660690256" type="txt_highscore">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+                <action id="-15" name="Set visible" sid="222137758951991" type="txt_score">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+            </actions>
+            <sub-events>
+                <event-block sid="777306966420601">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="667825509284426" type="System">
+                            <param id="0" name="Variable">HighScore</param>
+                            <param id="1" name="Comparison">2</param>
+                            <param id="2" name="Value">Score</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" sid="885832740287755" type="System">
+                            <param id="0" name="Variable">HighScore</param>
+                            <param id="1" name="Value">Score</param>
+                        </action>
+                        <action id="0" name="Set local value" sid="586002746656111" type="WebStorage">
+                            <param id="0" name="Key">&quot;HighScore&quot;</param>
+                            <param id="1" name="Value">Score</param>
+                        </action>
+                        <action id="0" name="Set text" sid="555980775678358" type="txt_highscore">
+                            <param id="0" name="Text">&quot;HighScore: &quot;&amp; HighScore</param>
+                        </action>
+                        <action id="-9" name="Set value" sid="962943876370471" type="System">
+                            <param id="0" name="Variable">Score</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="272694133801695">
+                    <conditions>
+                        <condition id="-22" name="Else" sid="882784940080515" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" sid="868333214802791" type="System">
+                            <param id="0" name="Variable">Score</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                        <action id="0" name="Set text" sid="306994179354885" type="txt_highscore">
+                            <param id="0" name="Text">&quot;HighScore: &quot;&amp; HighScore</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="971992257249603">
+            <conditions>
+                <condition id="1" name="On any key pressed" sid="966707864766559" type="Keyboard" />
+                <condition id="-14" name="Compare variable" sid="948837467721851" type="System">
+                    <param id="0" name="Variable">player_alive</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">0</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-26" name="Restart layout" sid="752238414355562" type="System" />
+                <action id="-9" name="Set value" sid="981952222199720" type="System">
+                    <param id="0" name="Variable">player_alive</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+                <action id="-13" name="Set time scale" sid="349230947428581" type="System">
+                    <param id="0" name="Time scale">1.0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="718422082609190">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="413569322172346" type="obj_platform">
+                    <param id="0" name="Object">obj_destroyer</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="265007270094007" type="obj_platform" />
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>
